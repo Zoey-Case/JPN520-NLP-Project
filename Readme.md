@@ -3,7 +3,7 @@
 ## Project Outline:
 - Independent research project in Japanese Linguistics.
 - I have decided to combine my interests in video games and programming for this project, by writing this program to analyze the scripts of the video games in the Persona series.
-- - Persona is developed by the video game company Atlus, based in Tokyo Japan.
+    - Persona is developed by the video game company Atlus, based in Tokyo Japan.
 
 ## Notes:
 
