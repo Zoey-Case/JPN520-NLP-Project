@@ -63,7 +63,6 @@ def ParseScript(script):
 
     for word in tagger(script):
         POS = ""
-        index = 0
         
         for index in range(len(word.pos)):
             if(word.pos[index] == ","):
@@ -146,68 +145,62 @@ with open("Persona5Lemma.csv", "w") as CSV:
 
 
 # Compare occurrences || Persona 4 base.
-P4comp = P4listSorted
-P5listSortedCopy = []
-for item in P5listSorted:
-    P5listSortedCopy.append(item)
+P4comp = P4listSorted.copy()
+P5listSortedCopy = P5listSorted.copy()
 
 for index1 in P4comp:
         for index2 in P5listSortedCopy:
-            if (index1[0] == index2[0]):
+            if (str(index1[0]) == str(index2[0])):
                 index1 += [index2[-1]]
                 P5listSortedCopy.remove(index2)
 
-with open("Persona4Comparisons.csv", "w") as CSV:
+with open("Persona4WordsComparison.csv", "w") as CSV:
     P4compOutput = csv.writer(CSV)
     P4compOutput.writerow(["Word", "Lemma", "POS", "P4 Occurrences", "P5 Occurrences"])
     P4compOutput.writerows(P4comp)
 
-P4lemmaComp = P4lemmaSorted
-P5lemmaSortedCopy = []
-for item in P5lemmaSorted:
-    P5lemmaSortedCopy.append(item)
+
+P4lemmaComp = P4lemmaSorted.copy()
+P5lemmaSortedCopy = P5lemmaSorted.copy()
 
 for index1 in P4lemmaComp:
         for index2 in P5lemmaSortedCopy:
-            if (index1[0] == index2[0]):
+            if (str(index1[0]) == str(index2[0])):
                 index1 += [index2[-1]]
                 P5lemmaSortedCopy.remove(index2)
 
-with open("Persona4LemmaComparisons.csv", "w") as CSV:
+with open("Persona4LemmaComparison.csv", "w") as CSV:
     P4lemmaCompOutput = csv.writer(CSV)
     P4lemmaCompOutput.writerow(["Lemma", "POS", "P4 Occurrences", "P5 Occurrences"])
     P4lemmaCompOutput.writerows(P4lemmaComp)
 
 
-# Compare occurrences || Persona 5 base.
-P5comp = P5listSorted
-P4listSortedCopy = []
-for item in P4listSorted:
-    P4listSortedCopy.append(item)
-    
+# Compare occurrences || Persona 4 base.
+P5comp = P5listSorted.copy()
+P4listSortedCopy = P4listSorted.copy()
+
 for index1 in P5comp:
         for index2 in P4listSortedCopy:
-            if (index1[0] == index2[0]):
+            if (str(index1[0]) == str(index2[0])):
                 index1 += [index2[-1]]
                 P4listSortedCopy.remove(index2)
-                
-with open("Persona5Comparisons.csv", "w") as CSV:
+
+with open("Persona5WordsComparison.csv", "w") as CSV:
     P5compOutput = csv.writer(CSV)
     P5compOutput.writerow(["Word", "Lemma", "POS", "P5 Occurrences", "P4 Occurrences"])
     P5compOutput.writerows(P5comp)
 
-P5lemmaComp = P5lemmaSorted
-P4lemmaSortedCopy = []
-for item in P4lemmaSorted:
-    P4lemmaSortedCopy.append(item)
+
+P5lemmaComp = P5lemmaSorted.copy()
+P4lemmaSortedCopy = P4lemmaSorted.copy()
 
 for index1 in P5lemmaComp:
         for index2 in P4lemmaSortedCopy:
-            if (index1[0] == index2[0]):
+            if (str(index1[0]) == str(index2[0])):
                 index1 += [index2[-1]]
                 P4lemmaSortedCopy.remove(index2)
 
-with open("Persona5LemmaComparisons.csv", "w") as CSV:
+with open("Persona5LemmaComparison.csv", "w") as CSV:
     P5lemmaCompOutput = csv.writer(CSV)
     P5lemmaCompOutput.writerow(["Lemma", "POS", "P5 Occurrences", "P4 Occurrences"])
     P5lemmaCompOutput.writerows(P5lemmaComp)

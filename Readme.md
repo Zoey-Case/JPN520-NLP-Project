@@ -46,3 +46,6 @@
     - Some quirk about how Python methods are instantiated has been resulting in erroneous errors in the data handling.
     - Removed method, and separated operations into individual for loops as a workaround.
     - **NOTE:** Didn't work. Will troubleshoot tomorrow.
+
+### 20240410
+1) I'm still struggling with the comparisons, so I',m going to attempt a completely different approach.
