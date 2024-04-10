@@ -106,39 +106,39 @@ def FindOccurrences(text):
 ###################################
 
 # Persona 4 Data...
-P4script = open("Persona4.txt", "r").read()
+P4script = open("Text Files/Persona4.txt", "r").read()
 P4text = ParseScript(P4script)
 P4textTrans = TranslatePOS(P4text)
 P4list = FindOccurrences(P4textTrans)
 P4parts = GetLemmaAndPOS(P4textTrans)
 
 P4listSorted = BubbleSort(P4list)
-with open("Persona4Words.csv", "w") as CSV:
+with open("CSV Files/Persona4Words.csv", "w") as CSV:
     P4output = csv.writer(CSV)
     P4output.writerow(["Word", "Lemma", "POS", "# Occurrences"])
     P4output.writerows(P4listSorted)
 
 P4lemmaSorted = BubbleSort(P4parts)
-with open("Persona4Lemma.csv", "w") as CSV:
+with open("CSV Files/Persona4Lemma.csv", "w") as CSV:
     P4lemmaOutput = csv.writer(CSV)
     P4lemmaOutput.writerow(["Lemma", "POS", "# Occurrences"])
     P4lemmaOutput.writerows(P4lemmaSorted)
 
 # Persona 5 Data...
-P5script = open("Persona5.txt", "r").read()
+P5script = open("Text Files/Persona5.txt", "r").read()
 P5text = ParseScript(P5script)
 P5textTrans = TranslatePOS(P5text)
 P5list = FindOccurrences(P5textTrans)
 P5parts = GetLemmaAndPOS(P5textTrans)
 
 P5listSorted = BubbleSort(P5list)
-with open("Persona5Words.csv", "w") as CSV:
+with open("CSV Files/Persona5Words.csv", "w") as CSV:
     P5output = csv.writer(CSV)
     P5output.writerow(["Word", "Lemma", "POS", "# Occurrences"])
     P5output.writerows(P5listSorted)
 
 P5lemmaSorted = BubbleSort(P5parts)
-with open("Persona5Lemma.csv", "w") as CSV:
+with open("CSV Files/Persona5Lemma.csv", "w") as CSV:
     P5partsOutput = csv.writer(CSV)
     P5partsOutput.writerow(["Lemma", "POS", "# of Occurrences"])
     P5partsOutput.writerows(P5lemmaSorted)
@@ -161,7 +161,7 @@ for index1 in P4comp:
 for index in P5listSorted:
     P4comp.append([index[0]] + [index[1]] + [index[2]] + [0] + [index[3]])
 
-with open("Persona4WordsComparison.csv", "w") as CSV:
+with open("CSV Files/Persona4WordsComparison.csv", "w") as CSV:
     P4compOutput = csv.writer(CSV)
     P4compOutput.writerow(["Word", "Lemma", "POS", "P4 Occurrences", "P5 Occurrences"])
     P4compOutput.writerows(P4comp)
@@ -183,7 +183,7 @@ for index1 in P4lemmaComp:
 for index in P5lemmaSorted:
     P4comp.append([index[0]] + [index[1]] + [0] + [index[2]])
 
-with open("Persona4LemmaComparison.csv", "w") as CSV:
+with open("CSV Files/Persona4LemmaComparison.csv", "w") as CSV:
     P4lemmaCompOutput = csv.writer(CSV)
     P4lemmaCompOutput.writerow(["Lemma", "POS", "P4 Occurrences", "P5 Occurrences"])
     P4lemmaCompOutput.writerows(P4lemmaComp)
@@ -192,7 +192,7 @@ with open("Persona4LemmaComparison.csv", "w") as CSV:
 # Compare word occurrences || Persona 5 base.
 P5comp = BubbleSort(P4comp)
 
-with open("Persona5WordsComparison.csv", "w") as CSV:
+with open("CSV Files/Persona5WordsComparison.csv", "w") as CSV:
     P5compOutput = csv.writer(CSV)
     P5compOutput.writerow(["Word", "Lemma", "POS", "P4 Occurrences", "P5 Occurrences"])
     P5compOutput.writerows(P5comp)
@@ -200,7 +200,7 @@ with open("Persona5WordsComparison.csv", "w") as CSV:
 # Compare lemma occurrences || Persona 5 base.
 P5lemmaComp = BubbleSort(P4lemmaComp)
 
-with open("Persona5LemmaComparison.csv", "w") as CSV:
+with open("CSV Files/Persona5LemmaComparison.csv", "w") as CSV:
     P5lemmaCompOutput = csv.writer(CSV)
     P5lemmaCompOutput.writerow(["Lemma", "POS", "P4 Occurrences", "P5 Occurrences"])
     P5lemmaCompOutput.writerows(P5lemmaComp)

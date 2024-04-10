@@ -48,7 +48,7 @@
     - **NOTE:** Didn't work. Will troubleshoot tomorrow.
 
 ### 20240410
-1) I'm still struggling with the comparisons, so I',m going to attempt a completely different approach using the BubbleSort method I've already written.
-    - Success!
-
-**MVP COMPLETE** *celebration noises*
+1) I'm still struggling with the comparisons, so I'm attempting a completely different approach using the BubbleSort method I've already written.
+    - Success! **MVP COMPLETE** *celebration noises*
+2) Used data from CSV files to create .xlsx files.
+3) Refactored project, for organization.

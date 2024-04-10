@@ -1,2 +1,5 @@
-*.csv
-fugashiTesting.py
+# Folders to ignore...
+CSV Backups
+Testing
+
+# Files to ignore...
