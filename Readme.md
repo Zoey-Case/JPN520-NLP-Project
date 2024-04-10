@@ -52,3 +52,10 @@
     - Success! **MVP COMPLETE** *celebration noises*
 2) Used data from CSV files to create .xlsx files.
 3) Refactored project, for organization.
+4) Created occurrence lists for *POS*.
+    - Considerations:
+        - Do I want to incorporate the necessary code into current parsing function?
+            - ~~Yes? I'm trying it.~~
+            - Tried it, but it's going to be easier to just create a new Python file for this secondary proceedure.
+    - Complete
+5) Created comparison lists, based on *POS*.

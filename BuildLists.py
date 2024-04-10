@@ -110,7 +110,7 @@ P4script = open("Text Files/Persona4.txt", "r").read()
 P4text = ParseScript(P4script)
 P4textTrans = TranslatePOS(P4text)
 P4list = FindOccurrences(P4textTrans)
-P4parts = GetLemmaAndPOS(P4textTrans)
+P4lemma = GetLemmaAndPOS(P4textTrans)
 
 P4listSorted = BubbleSort(P4list)
 with open("CSV Files/Persona4Words.csv", "w") as CSV:
@@ -118,7 +118,7 @@ with open("CSV Files/Persona4Words.csv", "w") as CSV:
     P4output.writerow(["Word", "Lemma", "POS", "# Occurrences"])
     P4output.writerows(P4listSorted)
 
-P4lemmaSorted = BubbleSort(P4parts)
+P4lemmaSorted = BubbleSort(P4lemma)
 with open("CSV Files/Persona4Lemma.csv", "w") as CSV:
     P4lemmaOutput = csv.writer(CSV)
     P4lemmaOutput.writerow(["Lemma", "POS", "# Occurrences"])
@@ -129,7 +129,7 @@ P5script = open("Text Files/Persona5.txt", "r").read()
 P5text = ParseScript(P5script)
 P5textTrans = TranslatePOS(P5text)
 P5list = FindOccurrences(P5textTrans)
-P5parts = GetLemmaAndPOS(P5textTrans)
+P5lemma = GetLemmaAndPOS(P5textTrans)
 
 P5listSorted = BubbleSort(P5list)
 with open("CSV Files/Persona5Words.csv", "w") as CSV:
@@ -137,11 +137,11 @@ with open("CSV Files/Persona5Words.csv", "w") as CSV:
     P5output.writerow(["Word", "Lemma", "POS", "# Occurrences"])
     P5output.writerows(P5listSorted)
 
-P5lemmaSorted = BubbleSort(P5parts)
+P5lemmaSorted = BubbleSort(P5lemma)
 with open("CSV Files/Persona5Lemma.csv", "w") as CSV:
-    P5partsOutput = csv.writer(CSV)
-    P5partsOutput.writerow(["Lemma", "POS", "# of Occurrences"])
-    P5partsOutput.writerows(P5lemmaSorted)
+    P5lemmaOutput = csv.writer(CSV)
+    P5lemmaOutput.writerow(["Lemma", "POS", "# of Occurrences"])
+    P5lemmaOutput.writerows(P5lemmaSorted)
 
 
 # Compare word occurrences || Persona 4 base.
