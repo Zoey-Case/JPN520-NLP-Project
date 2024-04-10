@@ -1,6 +1,8 @@
 from fugashi import Tagger
 import csv
 
+tagger = Tagger('-Owakati')
+
 ##############################
 ##      GLOBAL METHODS      ##
 ##############################
@@ -13,7 +15,7 @@ def BubbleSort(list):
         swapped = False
         
         for innerIndex in range(0, length - outerIndex - 1):
-            if list[innerIndex + 1][1] > list[innerIndex][1]:
+            if list[innerIndex + 1][-1] > list[innerIndex][-1]:
                 swapped = True
                 list[innerIndex + 1], list[innerIndex] = list[innerIndex], list[innerIndex + 1]
 
@@ -22,201 +24,116 @@ def BubbleSort(list):
     
     return list
 
-# Cleanup data to indicate individual variations of words and remove extraneous parts of speech.
-def TextFixup(list):
-    newList = []
-    parts = [0, 0, 0] # Sentences, Phrases, Quotes
-    teForm = ["て", "テ", "で", "デ"]
-    joiners = ["っ", "ッ", "ん", "ン"]
-    existenceVerbs = ["いる", "イル", "います", "ある", "アル", "あります"]
-    genericVerbs = ["ます", "する", "します", ""]
-    singleCharacters = ["し", "シ", "て", "テ", "た", "タ", "る", "ル", "れ", "レ", "え", "エ", "け", "ケ", "げ", "ゲ", "せ", "セ", "ぜ", "ゼ", "め", "メ", "てる", "ます"]
-    potential = ["え", "エ", "け", "ケ", "て", "で", "ね", "", "め", "", "へ", "", "れ", "", "せ", ""]
-    punctuation = ["!", "！", "？", "。"]
-    quotations = ["『", "』", "“", "”"]
-    special = ["(", "[", ")", "]", ")]", "_", "/", "<", ">", "＠", "％", "＆", "＊", "（", "）", "ー", "’", "：", "＞", "＜", "…"]
-    operation = 0
+
+def GetLemmaAndPOS(list):
+    length = len(list)
+    terms = []
     
-    for index in range(len(list)):
-        if len(newList) == 0:
-            operation = 1
-        elif (list[index][-1] in joiners and list[index + 1][0] in teForm):
-            operation = 2
-        elif list[index][0] in singleCharacters or list[index][0] in genericVerbs:
-            operation = 3
-        elif list[index][0] in existenceVerbs and newList[len(newList) - 1][-1] in teForm:
-            operation = 3
-        elif list[index][0] in teForm and (newList[len(newList) - 1][-1] in potential or newList[len(newList) - 1][-1] in joiners):
-            operation = 3
-        elif list[index] == "・" or list[index][0] == "の":
-            operation = 4
-        elif list[index][0] == "マス" and newList[len(newList) - 1][-1] == "リ":
-            operation = 4
-        elif list[index][0] in quotations:
-            operation = 0
-            parts[2] += 1
-        elif list[index][0] in punctuation:
-            operation = 0
-            parts[0] += 1
-            parts[1] += 1
-        elif list[index][0] == "、":
-            operation = 0
-            parts[1] += 1
-        elif list[index][0] in special:
-            operation = 0
-        else:
-            operation = 1
+    for index in range(length - 1):
+        incremented = False
         
-        match operation:
-            case 1:
-                newList.append(list[index][0])
-                print("Adding", list[index][0], "to list.")
-            case 2:
-                newList.append(list[index][0] + list[index + 1][0])
-                print("Combining", list[index][0], "and", list[index + 1][0], ",and adding to list.")
-                index += 1
-            case 3:
-                print("Attaching", list[index][0], "to", newList[len(newList) - 1], "at end of list.")
-                newList[len(newList) - 1] += list[index][0]
-            case 4:
-                print("Attaching", list[index][0], "to", newList[len(newList) - 1], "at end of list.")
-                newList[len(newList) - 1] += (list[index][0] + list[index + 1][0])
-                index += 1
-            case _:
-                continue
+        for term in terms:
+            if(list[index][1] == term[0]):
+                term[2] += 1
+                incremented = True
+                break
+            
+        if(incremented == False):
+            # TODO: Setup so only first POS entry gets added.
+            terms.append([list[index][1]]+[list[index][2]]+[1])
     
-    parts[2] /= 2
+    return terms
+
+
+def ParseScript(script):
+    text = []
     
-    return newList, parts
+    tagger.parse(script)
+
+    for word in tagger(script):
+        POS = ""
+        index = 0
+        
+        for index in range(len(word.pos)):
+            if(word.pos[index] == ","):
+                break
+            else:
+                POS += word.pos[index]
+        
+        text.append([word]+[word.feature.lemma]+[POS])
+    
+    return text
+
+
+def DetermineOccurrences(text):
+    list = []
+
+    for word in text:
+        location = 0
+        wordAdd = True
+        firstTerm = str(word[0])
+        
+        for term in list:
+            secondTerm = str(term[0])
+            
+            if(firstTerm == secondTerm):
+                print("P4, Match Found at: ", location)
+                list[location][3] += 1
+                wordAdd = False
+                break
+            else:
+                location += 1
+        
+        if wordAdd:
+            list.append(word+[1])
+    
+    return list
 
 
 ###################################
 ##      Processing The Data      ##
 ###################################
 
-tagger = Tagger('-Owakati')
+# Initialize the tagger.
+POStypes = ["補助記号", "助詞", "助動詞", "動詞", "副詞", "接頭辞", "代名詞", "接続詞", "名詞", "形容詞", "接尾辞"]
+POStranslations = ["Auxiliary Symbol", "Particle", "Auxiliary Verb", "Verb", "Adverb", "Prefix", "Pronoun", "Conjunction", "Noun", "い-Adjective", "Suffix"]
+
 
 P4script = open("Persona4.txt", "r").read()
+P4text = ParseScript(P4script)
+P4list = DetermineOccurrences(P4text)
+P4parts = GetLemmaAndPOS(P4text)
+P4listSorted = BubbleSort(P4list)
+P4partsSorted = BubbleSort(P4parts)
+
+
 # P5script = open("Persona5.txt", "r").read()
-
-# Separates individual words and inserts them into character array variables, using Fugashi's word tagger class.
-# tagger.parse(P4script)
-# P4text = [word.surface for word in tagger(P4script)]
-# P5text = [word.surface for word in tagger(P5script)]
-
-# P4textFixed, P4parts = TextFixup(P4text)
-# P5textFixed, P5parts = TextFixup(P5text)
-
-# Set up 2D arrays to store individual words and their number of occurrences.
-P4words = []
-# P5words = []
-P4wordsFixed = []
-# P5wordsFixed = []
-
-tagger.parse(P4script)
-P4text = []
-
-for word in tagger(P4script):
-    P4text.append([word, word.feature.lemma])
-
-P4textFixed, P4parts = TextFixup(P4text)
-
-# Creating Persona 4 Occurence List
-for word in P4textFixed:
-    location = 0
-    wordAdd = True
-    
-    for term in P4wordsFixed:
-        if(word == term[0]):
-            P4wordsFixed[location][1] += 1
-            wordAdd = False
-            break
-        else:
-            location += 1
-    
-    if wordAdd:
-        P4wordsFixed.append([word, 1])
-
-# Creating Persona 5 Occurence List
-# for word in P5textFixed:
-#     location = 0
-#     wordAdd = True
-    
-#     for term in P5wordsFixed:
-#         if(word == term[0]):
-#             P5wordsFixed[location][1] += 1
-#             wordAdd = False
-#             break
-#         else:
-#             location += 1
-    
-#     if wordAdd:
-#         P5wordsFixed.append([word, 1])
-
-# Creating Persona 4 Occurence List
-for word in P4text:
-    location = 0
-    wordAdd = True
-    
-    for term in P4words:
-        if(word == term[0]):
-            P4words[location][1] += 1
-            wordAdd = False
-            break
-        else:
-            location += 1
-    
-    if wordAdd:
-        P4words.append([word, 1])
-
-# Creating Persona 5 Occurence List
-# for word in P5text:
-#     location = 0
-#     wordAdd = True
-    
-#     for term in P5words:
-#         if(word == term[0]):
-#             P5words[location][1] += 1
-#             wordAdd = False
-#             break
-#         else:
-#             location += 1
-    
-#     if wordAdd:
-#         P5words.append([word, 1])
+# P5text = ParseScript(P5script)
+# P5list = DetermineOccurrences(P5text)
+# P5parts = GetLemmaAndPOS(P5text)
+# P5listSorted = BubbleSort(P5list)
+# P5partsSorted = BubbleSort(P5parts)
 
 
-P4fixedSorted = BubbleSort(P4wordsFixed)
-# P5fixedSorted = BubbleSort(P5wordsFixed)
-P4sorted = BubbleSort(P4words)
-# P5sorted = BubbleSort(P5words)
-
-# Save sorted Persona 4 list to spreadsheets.
+# Save sorted Persona 4 lists to spreadsheets.
 with open("Persona4.csv", "w") as CSV:
     P4output = csv.writer(CSV)
-    P4output.writerow(["Words", "Dictionary Form", "#"])
-    P4output.writerows(P4sorted)
+    P4output.writerow(["Word", "Lemma", "POS", "# Occurrences"])
+    P4output.writerows(P4listSorted)
 
-# Save sorted Persona 5 list to spreadsheets.
+with open("Persona4Parts.csv", "w") as CSV:
+    P4partsOutput = csv.writer(CSV)
+    P4partsOutput.writerow(["Lemma", "POS", "# Occurrences"])
+    P4partsOutput.writerows(P4partsSorted)
+
+
+# Save sorted Persona 5 lists to spreadsheets.
 # with open("Persona5.csv", "w") as CSV:
 #     P5output = csv.writer(CSV)
-#     P5output.writerow(["Words", "Dictionary Form", "#"])
-#     P5output.writerows(P5sorted)
+#     P5output.writerow(["Word", "Lemma", "POS", "# Occurrences"])
+#     P5output.writerows(P5listSorted)
 
-# Save sorted Persona 4 Fixup list to spreadsheets.
-with open("Persona4edited.csv", "w") as CSV:
-    P4output = csv.writer(CSV)
-    P4output.writerow(["Words", "#"])
-    P4output.writerows(P4fixedSorted)
-    P4output.writerow([" ", " ", " "])
-    P4output.writerow(["Sentences", "Phrases", "Quotes"])
-    P4output.writerow(P4parts)
-
-# Save sorted Persona 5 Fixup list to spreadsheets.
-# with open("Persona5edited.csv", "w") as CSV:
-#     P5output = csv.writer(CSV)
-#     P5output.writerow(["Words", "#"])
-#     P5output.writerows(P5fixedSorted)
-#     P5output.writerow([" ", " ", " "])
-#     P5output.writerow(["Sentences", "Phrases", "Quotes"])
-#     P5output.writerow(P5parts)
+# with open("Persona5Parts.csv", "w") as CSV:
+#     P5partsOutput = csv.writer(CSV)
+#     P5partsOutput.writerow(["Lemma", "POS", "# of Occurrences"])
+#     P5partsOutput.writerows(P5partsSorted)

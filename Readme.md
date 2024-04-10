@@ -23,3 +23,15 @@
 ### 20240326
 1) Initializing repository.
 2) Currently still "playing" with the data. I am unsure of what sorts of insights I might gleam.
+
+### 20240408
+1) After spending some time messing around with Fugashi and acquiring a better understanding of how it works, I've determined that none of my "fixup" code was necessary.
+    - Instead, I am using Fugashi's built-in POS categorization to complete this operation.
+2) Refactored the code to separate Persona 4 script operations from Persona 5 script operations.
+
+**NOTE:** I may have to abandon my goal of determining the occurrences of repeated phrases in each game.
+
+
+### 20240409
+1) Refactored code to use methods where code was being repeated for different operations.
+2) Setup a method to determine occurrences by *LEMMA*, rather than by *WORD*.
