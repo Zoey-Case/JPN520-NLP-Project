@@ -144,30 +144,44 @@ with open("Persona5Lemma.csv", "w") as CSV:
     P5partsOutput.writerows(P5lemmaSorted)
 
 
-# Compare occurrences || Persona 4 base.
+# Compare word occurrences || Persona 4 base.
 P4comp = P4listSorted.copy()
-P5listSortedCopy = P5listSorted.copy()
-
 for index1 in P4comp:
-        for index2 in P5listSortedCopy:
-            if (str(index1[0]) == str(index2[0])):
-                index1 += [index2[-1]]
-                P5listSortedCopy.remove(index2)
+    wordFound = False
+    
+    for index2 in P5listSorted:
+        if (str(index1[0]) == str(index2[0])):
+            index1 += [index2[-1]]
+            wordFound = True
+            P5listSorted.remove(index2)
+    
+    if(not wordFound):
+        index1 += [0]
+
+for index in P5listSorted:
+    P4comp.append([index[0]] + [index[1]] + [index[2]] + [0] + [index[3]])
 
 with open("Persona4WordsComparison.csv", "w") as CSV:
     P4compOutput = csv.writer(CSV)
     P4compOutput.writerow(["Word", "Lemma", "POS", "P4 Occurrences", "P5 Occurrences"])
     P4compOutput.writerows(P4comp)
 
-
+# Compare lemma occurrences || Persona 4 base.
 P4lemmaComp = P4lemmaSorted.copy()
-P5lemmaSortedCopy = P5lemmaSorted.copy()
-
 for index1 in P4lemmaComp:
-        for index2 in P5lemmaSortedCopy:
-            if (str(index1[0]) == str(index2[0])):
-                index1 += [index2[-1]]
-                P5lemmaSortedCopy.remove(index2)
+    wordFound = False
+    
+    for index2 in P5lemmaSorted:
+        if (str(index1[0]) == str(index2[0])):
+            index1 += [index2[-1]]
+            wordFound = True
+            P5lemmaSorted.remove(index2)
+
+    if(not wordFound):
+        index1 += [0]
+
+for index in P5lemmaSorted:
+    P4comp.append([index[0]] + [index[1]] + [0] + [index[2]])
 
 with open("Persona4LemmaComparison.csv", "w") as CSV:
     P4lemmaCompOutput = csv.writer(CSV)
@@ -175,32 +189,18 @@ with open("Persona4LemmaComparison.csv", "w") as CSV:
     P4lemmaCompOutput.writerows(P4lemmaComp)
 
 
-# Compare occurrences || Persona 4 base.
-P5comp = P5listSorted.copy()
-P4listSortedCopy = P4listSorted.copy()
-
-for index1 in P5comp:
-        for index2 in P4listSortedCopy:
-            if (str(index1[0]) == str(index2[0])):
-                index1 += [index2[-1]]
-                P4listSortedCopy.remove(index2)
+# Compare word occurrences || Persona 5 base.
+P5comp = BubbleSort(P4comp)
 
 with open("Persona5WordsComparison.csv", "w") as CSV:
     P5compOutput = csv.writer(CSV)
-    P5compOutput.writerow(["Word", "Lemma", "POS", "P5 Occurrences", "P4 Occurrences"])
+    P5compOutput.writerow(["Word", "Lemma", "POS", "P4 Occurrences", "P5 Occurrences"])
     P5compOutput.writerows(P5comp)
 
-
-P5lemmaComp = P5lemmaSorted.copy()
-P4lemmaSortedCopy = P4lemmaSorted.copy()
-
-for index1 in P5lemmaComp:
-        for index2 in P4lemmaSortedCopy:
-            if (str(index1[0]) == str(index2[0])):
-                index1 += [index2[-1]]
-                P4lemmaSortedCopy.remove(index2)
+# Compare lemma occurrences || Persona 5 base.
+P5lemmaComp = BubbleSort(P4lemmaComp)
 
 with open("Persona5LemmaComparison.csv", "w") as CSV:
     P5lemmaCompOutput = csv.writer(CSV)
-    P5lemmaCompOutput.writerow(["Lemma", "POS", "P5 Occurrences", "P4 Occurrences"])
+    P5lemmaCompOutput.writerow(["Lemma", "POS", "P4 Occurrences", "P5 Occurrences"])
     P5lemmaCompOutput.writerows(P5lemmaComp)

@@ -17,10 +17,10 @@
 - Parse out individual words, and tokenize them.
 - Tally the occurance of each token within each game's script.
 - Writes data to csv files for comparison.
-    - Words organized by parts of speech
+    - Word occurrences in each game.
+    - Lemma occurrences in each game.
     - Occurrence Comparison, based on Persona 4
     - Occurrence Comparison, based on Persona 5
-    - Recurring phrases
 
 
 ## Changelog
@@ -48,4 +48,7 @@
     - **NOTE:** Didn't work. Will troubleshoot tomorrow.
 
 ### 20240410
-1) I'm still struggling with the comparisons, so I',m going to attempt a completely different approach.
+1) I'm still struggling with the comparisons, so I',m going to attempt a completely different approach using the BubbleSort method I've already written.
+    - Success!
+
+**MVP COMPLETE** *celebration noises*
