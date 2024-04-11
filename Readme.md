@@ -59,3 +59,7 @@
             - Tried it, but it's going to be easier to just create a new Python file for this secondary proceedure.
     - Complete
 5) Created comparison lists, based on *POS*.
+6) Separated the different list creations out into separate Python programs, and moved by BubbleSort method into a separate file containing only a "Global Methods" class.
+7) Refactored program to use separate applications.
+    - Operated through a "shell" terminal application.
+8) Added a small module to determine total word count for each game.
