@@ -66,3 +66,10 @@
 
 ### 20240411
 1) Updated *BuildTotalWorldCounts.py* to output the wordcount datasets both including and excluding the total count of particles.
+
+
+## Citations
+- Atlus. “Persona 4.” Atlus., 2008.
+- Atlus. “Persona 5.” Atlus., 2016.
+- McCann, Paul. Fugashi, 2020, https://pypi.org/project/fugashi/. Accessed 2024.
+- McCann, Paul. “Fugashi, a tool for tokenizing Japanese in python.” Proceedings of Second Workshop for NLP Open Source Software (NLP-OSS), 2020, https://doi.org/10.18653/v1/2020.nlposs-1.7.
