@@ -27,7 +27,7 @@
 
 ### 20240326
 1) Initializing repository.
-2) Currently still "playing" with the data. I am unsure of what sorts of insights I might gleam.
+2) Currently still "playing" with the data. I am unsure of what sorts of insights I might glean.
 
 
 ### 20240408
