@@ -63,3 +63,6 @@
 7) Refactored program to use separate applications.
     - Operated through a "shell" terminal application.
 8) Added a small module to determine total word count for each game.
+
+### 20240411
+1) Updated *BuildTotalWorldCounts.py* to output the wordcount datasets both including and excluding the total count of particles.
