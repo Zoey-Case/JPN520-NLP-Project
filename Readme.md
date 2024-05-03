@@ -67,7 +67,7 @@
 ### 20240411
 1) Updated *BuildTotalWordCounts.py* to output the wordcount datasets both including and excluding the total count of particles.
 
-###20240415
+### 20240415
 - Have decided to continue working on this project over the summer and next semester, with plans to submit my work to be presented at next year's Central Kentucky Linguistics Conference.
 
 
