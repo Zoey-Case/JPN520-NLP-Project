@@ -85,6 +85,22 @@ def FindOccurrences(text):
     
     return list
 
+def ConvertToPercentages(text):
+    # totalWords = 0
+    
+    # for word in text:
+        # totalWords += word[3]
+    
+    # list = []
+    # location = 0
+    
+    # for word in text:
+        # list[location] = word
+        # list[location][3] = (word[3]/totalWords)
+    
+    # return list
+    pass
+
 
 ###################################
 ##      Processing The Data      ##
@@ -97,6 +113,7 @@ P4script = open("Text Files/Persona4.txt", "r").read()
 P4text = ParseScript(P4script)
 P4textTrans = TranslatePOS(P4text)
 P4list = FindOccurrences(P4textTrans)
+# P4listByP = ConvertToPercentages(P4list);
 P4lemma = GetLemmaAndPOS(P4textTrans)
 
 P4listSorted = Methods.BubbleSort(P4list)
@@ -105,6 +122,12 @@ with open(CSVdir+"/Persona4Words.csv", "w") as CSV:
     P4output.writerow(["Word", "Lemma", "POS", "# Occurrences"])
     P4output.writerows(P4listSorted)
 
+# P4listByPSorted = Methods.BubbleSort(P4listByP)
+# with open(CSVdir+"/Persona4WordsByP.csv", "w") as CSV:
+#     P4outputByP = csv.writer(CSV)
+#     P4outputByP.writerow(["Word", "Lemma", "POS", "% of Occurrences"])
+#     P4outputByP.writerows(P4listByPSorted)
+
 P4lemmaSorted = Methods.BubbleSort(P4lemma)
 with open(CSVdir+"/Persona4Lemma.csv", "w") as CSV:
     P4lemmaOutput = csv.writer(CSV)
@@ -112,13 +135,14 @@ with open(CSVdir+"/Persona4Lemma.csv", "w") as CSV:
     P4lemmaOutput.writerows(P4lemmaSorted)
     
 print("Completed processing Persona 4 Script.")
-print("Now processing Persona 5 Script.")
+print("Now processing Persona 4 Script.")
 
 # Persona 5 Data...
 P5script = open("Text Files/Persona5.txt", "r").read()
 P5text = ParseScript(P5script)
 P5textTrans = TranslatePOS(P5text)
 P5list = FindOccurrences(P5textTrans)
+# P5listByP = ConvertToPercentages(P5list);
 P5lemma = GetLemmaAndPOS(P5textTrans)
 
 P5listSorted = Methods.BubbleSort(P5list)
@@ -126,6 +150,12 @@ with open(CSVdir+"/Persona5Words.csv", "w") as CSV:
     P5output = csv.writer(CSV)
     P5output.writerow(["Word", "Lemma", "POS", "# Occurrences"])
     P5output.writerows(P5listSorted)
+    
+# P5listByPSorted = Methods.BubbleSort(P5listByP)
+# with open(CSVdir+"/Persona5WordsByP.csv", "w") as CSV:
+#     P5outputByP = csv.writer(CSV)
+#     P5outputByP.writerow(["Word", "Lemma", "POS", "% of Occurrences"])
+#     P5outputByP.writerows(P5listByPSorted)
 
 P5lemmaSorted = Methods.BubbleSort(P5lemma)
 with open(CSVdir+"/Persona5Lemma.csv", "w") as CSV:
@@ -133,4 +163,4 @@ with open(CSVdir+"/Persona5Lemma.csv", "w") as CSV:
     P5lemmaOutput.writerow(["Lemma", "POS", "# of Occurrences"])
     P5lemmaOutput.writerows(P5lemmaSorted)
     
-print("Completed processing Persona 4 Script.")
+print("Completed processing Persona 5 Script.")

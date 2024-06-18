@@ -18,6 +18,7 @@ class GlobalMethods:
         
         return list
 
+
     def ReadCSV(self, fileName):
         data = []
         
@@ -26,5 +27,6 @@ class GlobalMethods:
         
         data.pop(0)
         return data
+
 
 Methods = GlobalMethods()

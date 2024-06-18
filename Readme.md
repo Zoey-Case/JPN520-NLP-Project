@@ -1,6 +1,5 @@
 # Japanese Linguistics (LIN 520) - Final Project
 
-
 ## Project Outline:
 - Independent research project in Japanese Linguistics.
 - I have decided to combine my interests in video games and programming for this project, by writing this program to analyze the scripts of the video games in the Persona series.
@@ -69,6 +68,9 @@
 
 ### 20240415
 - Have decided to continue working on this project over the summer and next semester, with plans to submit my work to be presented at next year's Central Kentucky Linguistics Conference.
+
+### 20240618
+- Added Comment Code for my plan to implement methods for comparing word occurrences by percentage, rather than raw counts.
 
 
 ## Citations
