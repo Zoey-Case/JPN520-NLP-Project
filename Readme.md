@@ -72,6 +72,13 @@
 ### 20240618
 - Added Comment Code for my plan to implement methods for comparing word occurrences by percentage, rather than raw counts.
 
+### 20240807
+- Moved the application's reset functionality to a separate, dedicated file.
+- Uncommented previous Commented Code for comparing word occurences by percentage.
+
+### 20240808
+- Finished updating the app to include comparisons by percentages.
+
 
 ## Citations
 - Atlus. “Persona 4.” Atlus., 2008.

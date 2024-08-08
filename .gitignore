@@ -3,6 +3,7 @@ CSV Backups
 Testing
 DATA
 Spreadsheets
+__pycache__
 
 # Files to ignore...
 OperationTracker.csv
