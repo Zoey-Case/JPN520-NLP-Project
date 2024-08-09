@@ -76,8 +76,9 @@
 - Moved the application's reset functionality to a separate, dedicated file.
 - Uncommented previous Commented Code for comparing word occurences by percentage.
 
-### 20240808
+### 20240809
 - Finished updating the app to include comparisons by percentages.
+- Refactored and reorganized application to better accomodate further additions and updates.
 
 
 ## Citations
