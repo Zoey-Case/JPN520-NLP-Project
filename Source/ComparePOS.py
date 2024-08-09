@@ -39,7 +39,7 @@ for S1entry in S1parts:
 for S2entry in S2parts:
     S1parts.append([S2entry[0]] + [0] + [S2entry[1]])
 
-Methods.WriteToCSV(countOutputHeader, S1parts, "CountCompareS1POS")
+Methods.WriteToCSV(countOutputHeader, S1parts, "CountCompareScript1POS")
 
 
 for S1entry in S1partsByP:
@@ -57,16 +57,16 @@ for S1entry in S1partsByP:
 for S2entry in S2partsByP:
     S1partsByP.append([S2entry[0]] + [0] + [S2entry[1]])
 
-Methods.WriteToCSV(percentOutputHeader, S1partsByP, "PercentCompareS1POS")
+Methods.WriteToCSV(percentOutputHeader, S1partsByP, "PercentCompareScript1POS")
 
 
 S2parts = Methods.CopyArray(S1parts)
 Methods.BubbleSort(S2parts)
-Methods.WriteToCSV(countOutputHeader, S2parts, "CountCompareS2POS")
+Methods.WriteToCSV(countOutputHeader, S2parts, "CountCompareScript2POS")
 
 S2partsByP = Methods.CopyArray(S1partsByP)
 Methods.BubbleSort(S2partsByP)
-Methods.WriteToCSV(countOutputHeader, S2partsByP, "PercentCompareS2POS")
+Methods.WriteToCSV(countOutputHeader, S2partsByP, "PercentCompareScript2POS")
 
 totalsHeader = ["SET", "Script 1", "Script 2"]
 totals = Methods.ReadFromCSV("_Totals")

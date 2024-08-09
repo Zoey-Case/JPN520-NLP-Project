@@ -38,7 +38,7 @@ for S2entry in S2words:
     S1words.append([S2entry[0]] + [S2entry[1]] + [S2entry[2]] + [0] + [S2entry[3]])
 
 # S2words.clear()
-Methods.WriteToCSV(countOutputHeader, S1words, "CountCompareS1Words")
+Methods.WriteToCSV(countOutputHeader, S1words, "CountCompareScript1Words")
 
 
 print("Compiling Word Comparisons by PERCENTAGE, using the first script as the base.")
@@ -58,19 +58,19 @@ for S2entry in S2wordsByP:
     S1wordsByP.append([S2entry[0]] + [S2entry[1]] + [S2entry[2]] + [0] + [S2entry[3]])
 
 # S2wordsByP.clear()
-Methods.WriteToCSV(percentOutputHeader, S1wordsByP, "PercentCompareS1Words")
+Methods.WriteToCSV(percentOutputHeader, S1wordsByP, "PercentCompareScript1Words")
 
 
 print("Compiling Word Comparisons by COUNT, using the second script as the base.")
 S2words = Methods.CopyArray(S1words)
 Methods.BubbleSort(S2words)
-Methods.WriteToCSV(countOutputHeader, S2words, "CountCompareS2Words")
+Methods.WriteToCSV(countOutputHeader, S2words, "CountCompareScript2Words")
 
 
 print("Compiling Word Comparisons by PERCENTAGE, using the second script as the base.")
 S2wordsByP = Methods.CopyArray(S1wordsByP)
 Methods.BubbleSort(S2wordsByP)
-Methods.WriteToCSV(percentOutputHeader, S2wordsByP, "PercentCompareS2Words")
+Methods.WriteToCSV(percentOutputHeader, S2wordsByP, "PercentCompareScript2Words")
 
 print("Appending TOTALS dataset")
 totalsHeader = ["SET", "Script 1", "Script 2"]

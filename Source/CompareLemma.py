@@ -40,7 +40,7 @@ for S1entry in S1lemma:
 for S2entry in S2lemma:
     S1lemma.append([S2entry[0]] + [S2entry[1]] + [0] + [S2entry[2]])
 
-Methods.WriteToCSV(countOutputHeader, S1lemma, "CountCompareS1Lemma")
+Methods.WriteToCSV(countOutputHeader, S1lemma, "CountCompareScript1Lemma")
 
 
 print("Compiling Lemma Comparisons by PERCENTAGE, with Script 1 Base.")
@@ -59,17 +59,17 @@ for S1entry in S1lemmaByP:
 for S2entry in S2lemmaByP:
     S1lemmaByP.append([S2entry[0]] + [S2entry[1]] + [0] + [S2entry[2]])
 
-Methods.WriteToCSV(countOutputHeader, S1lemmaByP, "PercentCompareS1Lemma")
+Methods.WriteToCSV(countOutputHeader, S1lemmaByP, "PercentCompareScript1Lemma")
 
 
 print("Now compiling Lemma Comparisons by COUNT, with Script 2 Base.")
 S2lemma = Methods.BubbleSort(S1lemma)
-Methods.WriteToCSV(countOutputHeader, S2lemma, "CountCompareS2Lemma")
+Methods.WriteToCSV(countOutputHeader, S2lemma, "CountCompareScript2Lemma")
 
 
 print("Now compiling Lemma Comparisons by PERCENTAGE, with Script 2 Base.")
 S2lemmaByP = Methods.BubbleSort(S1lemmaByP)
-Methods.WriteToCSV(countOutputHeader, S2lemmaByP, "PercentCompareS2Lemma")
+Methods.WriteToCSV(countOutputHeader, S2lemmaByP, "PercentCompareScript2Lemma")
 
 
 print("Appending TOTALS dataset")

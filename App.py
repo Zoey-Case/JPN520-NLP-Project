@@ -9,7 +9,7 @@ while(True):
     
     print(" 1: Build parsed datasets.\n",
           "2: Build comparison datasets.\n",
-          "3: Build Total Word Counts.\n",
+          "3: Extract narrowed datasets.\n",
           "4: Reset Application.\n",
           "\n")
     
@@ -49,7 +49,7 @@ while(True):
                     Methods.RunModule("ComparePOS")
                 elif(userInput == "4" or userInput == "four"):
                     Methods.ClearScreen()
-                    print("Returning to MAIN options.\n")
+                    Methods.PromptReturn()
                     break
                 else:
                     Methods.ClearScreen()
@@ -57,6 +57,14 @@ while(True):
                     Methods.PromptContinue()
     
     elif(userInput == "3" or userInput == "three"):
+        if tracker[1][1] == "YES":
+            tracker[5][1] = int(tracker[5][1]) + 1
+            Methods.RunModule("CompareNarrow")
+        else:
+            Methods.ClearScreen()
+            print("Must build word comparison datasets before building comparison datasets.")
+    
+    elif(userInput == "4" or userInput == "four"):
         Methods.ResetApp(tracker, CSVdir)
         
     elif(userInput == "exit" or userInput == "quit"):

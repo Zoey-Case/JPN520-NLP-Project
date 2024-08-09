@@ -79,6 +79,7 @@
 ### 20240809
 - Finished updating the app to include comparisons by percentages.
 - Refactored and reorganized application to better accomodate further additions and updates.
+- Added a custom option menu for building a dataset.
 
 
 ## Citations

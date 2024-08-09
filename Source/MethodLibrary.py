@@ -16,6 +16,17 @@ class Methods:
             if not swapped:
                 return data
     
+    def BubbleSortAlt(self, data): 
+        length = len(data)
+        for outerIndex in range(length - 1):
+            swapped = False
+            for innerIndex in range(0, length - outerIndex - 1):
+                if (float(data[innerIndex + 1][-2]) > float(data[innerIndex][-2])):
+                    swapped = True
+                    data[innerIndex + 1], data[innerIndex] = data[innerIndex], data[innerIndex + 1]
+            if not swapped:
+                return data
+    
     
     def ClearScreen(self):
         os.system("clear")
@@ -24,6 +35,10 @@ class Methods:
     def ConvertToPercentages(self, text, total):
         for word in text:
             word[-1] = (float(word[-1]) / float(total)) * 100
+    
+    def ConvertToPercentagesAlt(self, text, total):
+        for word in text:
+            word[-2] = (float(word[-2]) / float(total)) * 100
     
     
     def CopyArray(self, arrayToCopy):
@@ -38,6 +53,51 @@ class Methods:
         for word in data:
             total += int(word[-1])
         return total
+    
+    
+    def CountEntriesAlt(self, data):
+        total = 0
+        for word in data:
+            total += int(word[-2])
+        return total
+    
+    
+    def Extract(self, POS):
+        script1 = self.ReadFromCSV("Script1Parsed")
+        script1.pop(-1)
+        script2 = self.ReadFromCSV("Script2Parsed")
+        script2.pop(-1)
+        newList = []
+        if(POS == "Adjective"):
+            for scriptItem in script1:
+                if scriptItem[2] == "い-Adjective" or scriptItem[2] == "な-Adjective":
+                    newList.append(scriptItem + [0])
+            for scriptItem in script2:
+                if scriptItem[2] == "い-Adjective" or scriptItem[2] == "な-Adjective":
+                    newWord = True
+                    for item in newList:
+                        if item[0] == scriptItem[0]:
+                            item[4] = scriptItem[3]
+                            newWord = False
+                            break
+                    if (newWord):
+                        newList.append([scriptItem[0], scriptItem[1], scriptItem[2], 0, scriptItem[3]])
+        else:
+            for scriptItem in script1:
+                if scriptItem[2] == POS:
+                    newList.append(scriptItem + [0])
+
+            for scriptItem in script2:
+                if scriptItem[2] == POS:
+                    newWord = True
+                    for item in newList:
+                        if item[0] == scriptItem[0]:
+                            item[4] = scriptItem[3]
+                            newWord = False
+                            break
+                    if (newWord):
+                        newList.append([scriptItem[0], scriptItem[1], scriptItem[2], 0, scriptItem[3]])
+        return newList
     
     
     def FindOccurrences(self, text):
@@ -94,18 +154,22 @@ class Methods:
             ["LEMMA", 0, 0],
             ["POS", 0, 0]]
         return totals
-
     
-    def PromptInvalid(self):
-        print("INVALID INPUT\n")
+    
+    def PromptComplete(self):
+        print("OPERATION COMPELTE.\n")
     
     
     def PromptContinue(self):
         input("Press 'ENTER' to continue.")
     
     
-    def PromptComplete(self):
-        print("OPERATION COMPELTE.\n")
+    def PromptInvalid(self):
+        print("INVALID INPUT\n")
+    
+    
+    def PromptReturn(self):
+        print("Returning to MAIN options.\n")
     
     
     def ReadFromCSV(self, fileName):
@@ -138,31 +202,31 @@ class Methods:
         if os.path.exists(CSVdir + "/Script2Parsed.csv"):
             os.remove(CSVdir + "/Script2Parsed.csv")
         # Delete Script 1 data files
-        if os.path.exists(CSVdir + "/CountCompareS1Lemma.csv"):
-            os.remove(CSVdir + "/CountCompareS1Lemma.csv")
-        if os.path.exists(CSVdir + "/CountCompareS1POS.csv"):
-            os.remove(CSVdir + "/CountCompareS1POS.csv")
-        if os.path.exists(CSVdir + "/CountCompareS1Words.csv"):
-            os.remove(CSVdir + "/CountCompareS1Words.csv")
-        if os.path.exists(CSVdir + "/PercentCompareS1Lemma.csv"):
-            os.remove(CSVdir + "/PercentCompareS1Lemma.csv")
-        if os.path.exists(CSVdir + "/PercentCompareS1POS.csv"):
-            os.remove(CSVdir + "/PercentCompareS1POS.csv")
-        if os.path.exists(CSVdir + "/PercentCompareS1Words.csv"):
-            os.remove(CSVdir + "/PercentCompareS1Words.csv")
+        if os.path.exists(CSVdir + "/CountCompareScript1Lemma.csv"):
+            os.remove(CSVdir + "/CountCompareScript1Lemma.csv")
+        if os.path.exists(CSVdir + "/CountCompareScript1POS.csv"):
+            os.remove(CSVdir + "/CountCompareScript1POS.csv")
+        if os.path.exists(CSVdir + "/CountCompareScript1Words.csv"):
+            os.remove(CSVdir + "/CountCompareScript1Words.csv")
+        if os.path.exists(CSVdir + "/PercentCompareScript1Lemma.csv"):
+            os.remove(CSVdir + "/PercentCompareScript1Lemma.csv")
+        if os.path.exists(CSVdir + "/PercentCompareScript1POS.csv"):
+            os.remove(CSVdir + "/PercentCompareScript1POS.csv")
+        if os.path.exists(CSVdir + "/PercentCompareScript1Words.csv"):
+            os.remove(CSVdir + "/PercentCompareScript1Words.csv")
         # Delete Script 2 data files
-        if os.path.exists(CSVdir + "/CountCompareS2Lemma.csv"):
-            os.remove(CSVdir + "/CountCompareS2Lemma.csv")
-        if os.path.exists(CSVdir + "/CountCompareS2POS.csv"):
-            os.remove(CSVdir + "/CountCompareS2POS.csv")
-        if os.path.exists(CSVdir + "/CountCompareS2Words.csv"):
-            os.remove(CSVdir + "/CountCompareS2Words.csv")
-        if os.path.exists(CSVdir + "/PercentCompareS2Lemma.csv"):
-            os.remove(CSVdir + "/PercentCompareS2Lemma.csv")
-        if os.path.exists(CSVdir + "/PercentCompareS2POS.csv"):
-            os.remove(CSVdir + "/PercentCompareS2POS.csv")
-        if os.path.exists(CSVdir + "/PercentCompareS2Words.csv"):
-            os.remove(CSVdir + "/PercentCompareS2Words.csv")
+        if os.path.exists(CSVdir + "/CountCompareScript2Lemma.csv"):
+            os.remove(CSVdir + "/CountCompareScript2Lemma.csv")
+        if os.path.exists(CSVdir + "/CountCompareScript2POS.csv"):
+            os.remove(CSVdir + "/CountCompareScript2POS.csv")
+        if os.path.exists(CSVdir + "/CountCompareScript2Words.csv"):
+            os.remove(CSVdir + "/CountCompareScript2Words.csv")
+        if os.path.exists(CSVdir + "/PercentCompareScript2Lemma.csv"):
+            os.remove(CSVdir + "/PercentCompareScript2Lemma.csv")
+        if os.path.exists(CSVdir + "/PercentCompareScript2POS.csv"):
+            os.remove(CSVdir + "/PercentCompareScript2POS.csv")
+        if os.path.exists(CSVdir + "/PercentCompareScript2Words.csv"):
+            os.remove(CSVdir + "/PercentCompareScript2Words.csv")
         print("APPLICATION RESET.\n")
     
     
@@ -179,14 +243,16 @@ class Methods:
             dataTracker = [["Parsed Datasets Built", "NO"],
                            ["Word Comparison Dataset Built", "NO"],
                            ["Lemma Comparison Dataset Built", "NO"],
-                           ["POS Datasets Built", "NO"]]
+                           ["POS Datasets Built", "NO"],
+                           [],
+                           ["NarrowNum", 0]]
         dataTracker.insert(0, ["Operation", "Completed?"])
         return dataTracker
     
     
     def TranslatePOS(self, POS):
         POStypes = ["補助記号", "助詞", "助動詞", "動詞", "副詞", "接頭辞", "代名詞", "接続詞", "名詞", "形容詞", "接尾辞", "連体詞", "感動詞", "記号", "形状詞"]
-        POStranslations = ["Auxiliary Symbol", "Particle", "Auxiliary Verb", "Verb", "Adverb", "Prefix", "Pronoun", "Conjunction", "Noun", "い-Adjective", "Suffix", "Adnominal", "Interjection", "Code", "な-Adjective"]
+        POStranslations = ["Auxiliary Symbol", "Particle", "Auxiliary Verb", "Verb", "Adverb", "Prefix", "Pronoun", "Conjunction", "Noun", "い-Adjective", "Suffix", "Adnominal", "Interjection", "Coda", "な-Adjective"]
         for index in range(len(POStypes)):
             if (POS == POStypes[index]):
                 POS = POStranslations[index]
@@ -199,5 +265,6 @@ class Methods:
             Output.writerow(header)
             Output.writerows(inData)
 
+customOutputFileNum = 0
 
 Methods = Methods()
