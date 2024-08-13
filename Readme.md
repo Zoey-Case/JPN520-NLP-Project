@@ -81,6 +81,9 @@
 - Refactored and reorganized application to better accomodate further additions and updates.
 - Added a custom option menu for building a dataset.
 
+### 20240813
+- Split off a branch to develop a GUI for the app, using the [Tkinter](https://docs.python.org/3/library/tkinter.html) and [Threading](https://docs.python.org/3/library/threading.html) librarires.
+
 
 ## Citations
 - Atlus. “Persona 4.” Atlus., 2008.

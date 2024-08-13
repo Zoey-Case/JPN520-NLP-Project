@@ -2,7 +2,6 @@ from Source.MethodLibrary import Methods
 
 tracker = Methods.SetUpDataTracker()
 trackerHeader = tracker.pop(0)
-CSVdir = "DATA"
 
 while(True):
     Methods.ClearScreen()
@@ -65,7 +64,7 @@ while(True):
             print("Must build word comparison datasets before building comparison datasets.")
     
     elif(userInput == "4" or userInput == "four"):
-        Methods.ResetApp(tracker, CSVdir)
+        Methods.ResetApp(tracker)
         
     elif(userInput == "exit" or userInput == "quit"):
         Methods.ClearScreen()
