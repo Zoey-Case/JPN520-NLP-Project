@@ -84,6 +84,18 @@
 ### 20240813
 - Split off a branch to develop a GUI for the app, using the [Tkinter](https://docs.python.org/3/library/tkinter.html) and [Threading](https://docs.python.org/3/library/threading.html) librarires.
 
+### 20240813
+- The GUI now controls all primary functionality. The final task is to incorporate the Custom Datasets functionality.
+- I've just discovered a small bug where some words appear to not have an associated lemma after parsing. (So far, I'm only seeing this happen with Arabic numerals.)
+    - This means that the Lemma comparison is erroneously combining completely different "words" into a single count.
+    - I'll likely correct this by copying the "word" into the "lemma" index.
+
+### 20240820
+- Finished converting the application to a GUI app, using Tkinter.
+    - Required implementing Threads to function correctly.
+- Fixed the previous issue where some entries had a null index where their Lemma should be located.
+- Added some code to prepare for allowing a user to dictate the number of scripts to use, as well as their names.
+    - Current functionality unaffected.
 
 ## Citations
 - Atlus. “Persona 4.” Atlus., 2008.

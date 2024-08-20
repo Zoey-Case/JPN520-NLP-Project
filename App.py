@@ -1,79 +1,33 @@
+from functools import partial
 from Source.MethodLibrary import Methods
+from Source.MethodLibrary import MenuMethods
+import Source.Strings as STR
+import tkinter as tk
 
-tracker = Methods.SetUpDataTracker()
-trackerHeader = tracker.pop(0)
+mainMenu = tk.Tk()
+mainMenu.minsize(480,270)
+mainMenu.title(STR.MENU_TITLE)
 
-while(True):
-    Methods.ClearScreen()
-    
-    print(" 1: Build parsed datasets.\n",
-          "2: Build comparison datasets.\n",
-          "3: Extract narrowed datasets.\n",
-          "4: Reset Application.\n",
-          "\n")
-    
-    print("Enter the number corresponding to your choice.")
-    userInput = str(input("Enter EXIT or QUIT to exit the application.\n\n"))
-    userInput.lower()
-    
-    if(userInput == "1" or userInput == "one"):
-        tracker[0][1] = "YES"
-        Methods.RunModule("DataParser")
-    
-    elif(userInput == "2" or userInput == "two"):
-        if(tracker[0][1] == "NO"):
-            Methods.ClearScreen()
-            print("Must build parsed datasets before building comparison datasets.")
-        else:
-            while(True):
-                Methods.ClearScreen()
-                print(" 1: Build Word Comparison Dataset\n",
-                    "2: Build Lemma Comparison Dataset\n",
-                    "3: Build POS Comparison Dataset\n",
-                    "4: Return to previous options.")
-                
-                userInput = str(input("Enter the number corresponding to your choice.\n"))
-                
-                if(userInput == "1" or userInput == "one"):
-                    tracker[1][1] = "YES"
-                    Methods.ClearScreen()
-                    Methods.RunModule("CompareWords")
-                elif(userInput == "2" or userInput == "two"):
-                    tracker[2][1] = "YES"
-                    Methods.ClearScreen()
-                    Methods.RunModule("CompareLemma")
-                elif(userInput == "3" or userInput == "three"):
-                    tracker[3][1] = "YES"
-                    Methods.ClearScreen()
-                    Methods.RunModule("ComparePOS")
-                elif(userInput == "4" or userInput == "four"):
-                    Methods.ClearScreen()
-                    Methods.PromptReturn()
-                    break
-                else:
-                    Methods.ClearScreen()
-                    Methods.PromptInvalid()
-                    Methods.PromptContinue()
-    
-    elif(userInput == "3" or userInput == "three"):
-        if tracker[1][1] == "YES":
-            tracker[5][1] = int(tracker[5][1]) + 1
-            Methods.RunModule("CompareNarrow")
-        else:
-            Methods.ClearScreen()
-            print("Must build word comparison datasets before building comparison datasets.")
-    
-    elif(userInput == "4" or userInput == "four"):
-        Methods.ResetApp(tracker)
-        
-    elif(userInput == "exit" or userInput == "quit"):
-        Methods.ClearScreen()
-        break
-    
-    else:
-        Methods.ClearScreen()
-        Methods.PromptInvalid()
-    
-    Methods.PromptContinue()
+width = 480
+height = 270
+screenWidth = mainMenu.winfo_screenwidth()
+screenHeight = mainMenu.winfo_screenheight()
+xLoc = (screenWidth/2) - (width/2)
+yLoc = (screenHeight/2) - (height/2)
+mainMenu.geometry('%dx%d+%d+%d' % (width, height, xLoc, yLoc))
 
-Methods.WriteToCSV(trackerHeader, tracker, "_OperationTracker")
+menuLabel = tk.Label(master = mainMenu, text = STR.MENU_LABEL, font = ("Ariel", 20))
+buildParsed = tk.Button(master = mainMenu, text = STR.MENU_OPTION_0, bg = "gray", fg = "black", command = partial(MenuMethods.ParseText, mainMenu, STR))
+buildCompare = tk.Button(master = mainMenu, text = STR.MENU_OPTION_1, bg = "gray", fg = "black", command = partial(MenuMethods.DefaultComparisonMenu, mainMenu, STR))
+buildCustom = tk.Button(master = mainMenu, text = STR.MENU_OPTION_2, bg = "gray", fg = "black", command = partial(MenuMethods.CustomComparisonMenu, mainMenu, STR))
+resetApp = tk.Button(master = mainMenu, text = STR.MENU_OPTION_3, bg = "gray", fg = "black", command = partial(MenuMethods.ResetApp))
+exitApp = tk.Button(master = mainMenu, text = STR.MENU_OPTION_4, bg = "gray", fg = "black", command = partial(MenuMethods.CloseApp, mainMenu))
+
+menuLabel.pack(fill = tk.BOTH, padx = 15, pady = 5, expand = True)
+buildParsed.pack(fill = tk.BOTH, padx = 15, pady = 5, expand = True)
+buildCompare.pack(fill = tk.BOTH, padx = 15, pady = 5, expand = True)
+buildCustom.pack(fill = tk.BOTH, padx = 15, pady = 5, expand = True)
+resetApp.pack(fill = tk.BOTH, padx = 15, pady = 5, expand = True)
+exitApp.pack(fill = tk.BOTH, padx = 15, pady = 5, expand = True)
+
+mainMenu.mainloop()

@@ -1,30 +1,26 @@
 from MethodLibrary import Methods
 
-
 countOutputHeader = ["Lemma", "POS", "P4 Occurrence Count", "P5 Occurrence Count"]
 percentOutputHeader = ["Lemma", "POS", "P4 Occurrence Percentage", "P5 Occurrence Percentage"]
 
-print("Reading in data.")
-script1 = Methods.ReadFromCSV("Script1Parsed")
+script1 = Methods.ReadFromCSV("Script1Parsed", Methods.GetDirectoryMainCSV())
 script1 = Methods.RemoveSymbols(script1)
 S1lemma = Methods.GetLemmaAndPOS(script1)
-Methods.BubbleSort(S1lemma)
-S1total = Methods.CountEntries(S1lemma)
+Methods.BubbleSort(S1lemma, -1)
+S1total = Methods.CountEntries(S1lemma, -1)
 
-script2 = Methods.ReadFromCSV("Script2Parsed")
+script2 = Methods.ReadFromCSV("Script2Parsed", Methods.GetDirectoryMainCSV())
 script2.pop(-1)
 script2 = Methods.RemoveSymbols(script2)
 S2lemma = Methods.GetLemmaAndPOS(script2)
-Methods.BubbleSort(S2lemma)
-S2total = Methods.CountEntries(S2lemma)
+Methods.BubbleSort(S2lemma, -1)
+S2total = Methods.CountEntries(S2lemma, -1)
 
-S1lemmaByP = Methods.CopyArray(S1lemma)
-Methods.ConvertToPercentages(S1lemmaByP, S1total)
-S2lemmaByP = Methods.CopyArray(S2lemma)
-Methods.ConvertToPercentages(S2lemmaByP, S2total)
+S1lemmaByP = Methods.Copy(S1lemma)
+Methods.ConvertToPercentages(S1lemmaByP, S1total, -1)
+S2lemmaByP = Methods.Copy(S2lemma)
+Methods.ConvertToPercentages(S2lemmaByP, S2total, -1)
 
-
-print("Compiling Lemma Comparisons by COUNT, with Script 1 Base.")
 for S1entry in S1lemma:
     wordFound = False
     
@@ -40,10 +36,8 @@ for S1entry in S1lemma:
 for S2entry in S2lemma:
     S1lemma.append([S2entry[0]] + [S2entry[1]] + [0] + [S2entry[2]])
 
-Methods.WriteToCSV(countOutputHeader, S1lemma, "CountCompareScript1Lemma")
+Methods.WriteToCSV(countOutputHeader, S1lemma, "Script1LemmaCountCompare", Methods.GetDirectoryDefaultCSV())
 
-
-print("Compiling Lemma Comparisons by PERCENTAGE, with Script 1 Base.")
 for S1entry in S1lemmaByP:
     wordFound = False
     
@@ -59,25 +53,15 @@ for S1entry in S1lemmaByP:
 for S2entry in S2lemmaByP:
     S1lemmaByP.append([S2entry[0]] + [S2entry[1]] + [0] + [S2entry[2]])
 
-Methods.WriteToCSV(countOutputHeader, S1lemmaByP, "PercentCompareScript1Lemma")
+Methods.WriteToCSV(countOutputHeader, S1lemmaByP, "Script1LemmaPercentCompare", Methods.GetDirectoryDefaultCSV())
 
+S2lemma = Methods.BubbleSort(S1lemma, -1)
+Methods.WriteToCSV(countOutputHeader, S2lemma, "Script2LemmaCountCompare", Methods.GetDirectoryDefaultCSV())
 
-print("Now compiling Lemma Comparisons by COUNT, with Script 2 Base.")
-S2lemma = Methods.BubbleSort(S1lemma)
-Methods.WriteToCSV(countOutputHeader, S2lemma, "CountCompareScript2Lemma")
+S2lemmaByP = Methods.BubbleSort(S1lemmaByP, -1)
+Methods.WriteToCSV(countOutputHeader, S2lemmaByP, "Script2LemmaPercentCompare", Methods.GetDirectoryDefaultCSV())
 
-
-print("Now compiling Lemma Comparisons by PERCENTAGE, with Script 2 Base.")
-S2lemmaByP = Methods.BubbleSort(S1lemmaByP)
-Methods.WriteToCSV(countOutputHeader, S2lemmaByP, "PercentCompareScript2Lemma")
-
-
-print("Appending TOTALS dataset")
 totalsHeader = ["SET", "Script 1", "Script 2"]
-totals = Methods.ReadFromCSV("_Totals")
+totals = Methods.ReadFromCSV("Totals", Methods.GetDirectoryMainCSV())
 totals[2] = ["LEMMA", S2total, S2total]
-Methods.WriteToCSV(totalsHeader, totals, "_Totals")
-
-
-Methods.PromptComplete()
-Methods.PromptContinue()
+Methods.WriteToCSV(totalsHeader, totals, "Totals", Methods.GetDirectoryMainCSV())
