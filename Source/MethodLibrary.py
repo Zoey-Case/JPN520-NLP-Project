@@ -68,11 +68,11 @@ class Methods:
                     if (newWord):
                         newList.append([scriptItem[0], scriptItem[1], 0, scriptItem[2]])
         else:
-            for scriptItem in dataset1:
+            for scriptItem in script1:
                 if scriptItem[2] == POS:
                     newList.append(scriptItem + [0])
 
-            for scriptItem in dataset2:
+            for scriptItem in script2:
                 if scriptItem[2] == POS:
                     newWord = True
                     for item in newList:
@@ -262,9 +262,9 @@ class MenuMethods:
         adjCompAll = tk.Button(master = compWindow, text = STR.CUST_OPTION_0, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "All Adjectives"))
         adjCompI = tk.Button(master = compWindow, text = STR.CUST_OPTION_1, bg = "gray", fg = "black", state = "disabled",
-                                command = partial(self.__AddCustomOption, "い-Adjeective"))
+                                command = partial(self.__AddCustomOption, "い-Adjective"))
         adjCompNa = tk.Button(master = compWindow, text = STR.CUST_OPTION_2, bg = "gray", fg = "black", state = "disabled",
-                                command = partial(self.__AddCustomOption, "な-Adjeective"))
+                                command = partial(self.__AddCustomOption, "な-Adjective"))
         adnomComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_3, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Adnominal"))
         advComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_4, bg = "gray", fg = "black", state = "disabled",
@@ -471,6 +471,16 @@ class MenuMethods:
         
     
     def __RunCustomProcess(self, root, type, STR):
+        breakOut = True
+        
+        for entry in self.customOptions:
+            if(entry[-1] == 1):
+                breakOut = False
+                break
+        
+        if(breakOut):
+            return
+                
         self.customOptions[-1][1] = int(self.customOptions[-1][1]) + 1
         self.tracker[-1][1] = self.customOptions[-1][1]
         self.customOptions[-2][1] = type

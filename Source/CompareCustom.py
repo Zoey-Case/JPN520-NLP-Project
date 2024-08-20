@@ -1,7 +1,7 @@
 from MethodLibrary import Methods
 
-countOutputHeader = ["WORD", "LEMMA", "POS", "SCRIPT 1 COUNT", "SCRIPT 2 COUNT"]
-percentOutputHeader = ["WORD", "LEMMA", "POS", "SCRIPT 1 PERCENT", "SCRIPT 2 PERCENT"]
+countOutputHeader = []
+percentOutputHeader = []
 dataset = []
 
 customOptions = Methods.ReadFromCSV("_CustomOptions", Methods.GetDirectoryMainCSV())
@@ -9,6 +9,13 @@ fileNum = customOptions.pop(-1)
 fileNum = int(fileNum.pop(-1))
 type = customOptions.pop(-1)
 type = str(type.pop(-1))
+
+if(type == "LEMMA"):
+    countOutputHeader = ["LEMMA", "POS", "SCRIPT 1 COUNT", "SCRIPT 2 COUNT"]
+    percentOutputHeader = ["LEMMA", "POS", "SCRIPT 1 PERCENT", "SCRIPT 2 PERCENT"]
+else:
+    countOutputHeader = ["WORD", "LEMMA", "POS", "SCRIPT 1 COUNT", "SCRIPT 2 COUNT"]
+    percentOutputHeader = ["WORD", "LEMMA", "POS", "SCRIPT 1 PERCENT", "SCRIPT 2 PERCENT"]
 
 for entry in customOptions:
     if entry[1] == "1":
@@ -35,4 +42,3 @@ Methods.WriteToCSV(countOutputHeader, S1datasetByP, "Script1CustomPercentCompare
 Methods.WriteToCSV(countOutputHeader, S2datasetByP, "Script2CustomPercentCompare-" + str(fileNum), Methods.GetDirectoryCustomCSV())
 
 Methods.DeleteCSVfile("_CustomOptions", Methods.GetDirectoryMainCSV())
-
