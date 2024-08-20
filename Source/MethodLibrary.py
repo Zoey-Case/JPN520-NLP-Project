@@ -487,11 +487,16 @@ class MenuMethods:
         
         Methods.WriteToCSV(["OPERATIONS"], self.customOptions, "_CustomOptions", Methods.GetDirectoryMainCSV())
         
+        self.customOptions = self.__SetupCustomOptionTracker()
+        
         for index in range(13):
             if(self.customOptions[index][1] == 1):
                 self.customOptions[index][1] = 0
         
-        self.__ModuleProcessWindow("CompareCustom", root, [], STR.LEMMA_TITLE, STR.LEMMA_LABEL, STR.RETURN)
+        if(type == "LEMMA"):
+            self.__ModuleProcessWindow("CompareCustom", root, [], STR.LEMMA_TITLE, STR.LEMMA_LABEL, STR.RETURN)
+        else:
+            self.__ModuleProcessWindow("CompareCustom", root, [], STR.WORD_TITLE, STR.WORD_LABEL, STR.RETURN)
     
     def __SetupCustomOptionTracker(self):
         return  [["い-Adjective", 0],
