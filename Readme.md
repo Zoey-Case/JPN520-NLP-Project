@@ -96,6 +96,10 @@
 - Fixed the previous issue where some entries had a null index where their Lemma should be located.
 - Added some code to prepare for allowing a user to dictate the number of scripts to use, as well as their names.
     - Current functionality unaffected.
+### 20250301
+- Fixed bug in ResetApp function which would result in custom comparison files being skipped.
+- Commented out the function Methods.HandleDataTracker.
+  - I wrote this function a while ago, and I'm not sure it was necessary.
 
 ## Citations
 - Atlus. “Persona 4.” Atlus., 2008.

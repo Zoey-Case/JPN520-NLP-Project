@@ -150,12 +150,13 @@ class Methods:
         return self.scriptNames[index]
     
     
-    def HandleDataTracker(self, operation):
-        if operation == "open":
-            tracker = self.SetUpDataTracker()
-            trackerHeader = tracker.pop(0)
-        elif operation == "close":
-            self.WriteToCSV(trackerHeader, tracker, "_OperationTracker", self.mainCSVdir)
+    # COMMENTED OUT BECAUSE I WROTE THIS A WHILE AGO AND AM UNCERTAIN IT IS NECESSARY.
+    # def HandleDataTracker(self, operation):
+    #     if operation == "open":
+    #         self.tracker = self.SetUpDataTracker()
+    #         self.trackerHeader = self.tracker.pop(0)
+    #     elif operation == "close":
+    #         self.WriteToCSV(self.trackerHeader, self.tracker, "_OperationTracker", self.mainCSVdir)
     
     
     def InitializeTotalsSet(self, initialTotals):
@@ -218,12 +219,15 @@ class Methods:
             Output.writerow(header)
             Output.writerows(inData)
 
-    customCSVdir = "Data/Custom Comparisons/"
-    defaultCSVdir = "Data/Default Comparisons/"
     mainCSVdir = "Data/"
+    customCSVdir = mainCSVdir + "Custom Comparisons/"
+    defaultCSVdir = mainCSVdir + "Default Comparisons/"
     
     numScripts = 2
     scriptNames = ["Script1", "Script2"]
+
+    tracker = []
+    trackerHeader = []
 
 Methods = Methods()
 
@@ -396,9 +400,9 @@ class MenuMethods:
             Methods.DeleteCSVfile("Script" + str(index) + "POSPercentCompare", Methods.GetDirectoryDefaultCSV())
             Methods.DeleteCSVfile("Script" + str(index) + "WordsPercentCompare", Methods.GetDirectoryDefaultCSV())
             
-            for index in range(int(self.tracker[-1][1]) + 1):
-                Methods.DeleteCSVfile("Script" + str(index) + "CustomCountCompare-" + str(index), Methods.GetDirectoryCustomCSV())
-                Methods.DeleteCSVfile("Script" + str(index) + "CustomPercentCompare-" + str(index), Methods.GetDirectoryCustomCSV())
+            for customIndex in range(int(self.tracker[-1][1]) + 1):
+                Methods.DeleteCSVfile("Script" + str(index) + "CustomCountCompare-" + str(customIndex), Methods.GetDirectoryCustomCSV())
+                Methods.DeleteCSVfile("Script" + str(index) + "CustomPercentCompare-" + str(customIndex), Methods.GetDirectoryCustomCSV())
         
         for index in range(len(self.tracker) - 1):
             self.tracker[index][1] = "NO"
