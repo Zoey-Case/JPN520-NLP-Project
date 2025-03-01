@@ -1,7 +1,7 @@
 # Folders to ignore...
 CSV Backups
 Testing
-DATA
+Data/*
 Spreadsheets
 __pycache__
 

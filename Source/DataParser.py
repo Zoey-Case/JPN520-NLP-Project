@@ -24,30 +24,26 @@ def ParseScript(script):
     return text
 
 outputHeader = ["WORD", "LEMMA", "POS", "OCCURRENCE COUNT"]
+totalsHeader = ["SET"]
+initialTotals = ["ALL"]
 
-name = "Persona4"
-print("PARSING SCRIPT 1.")
-script1 = open("Script Files/" + name + ".txt", "r").read()
-S1words = ParseScript(script1)
-S1words = Methods.FindOccurrences(S1words)
-Methods.BubbleSort(S1words)
-S1total = Methods.CountEntries(S1words)
-Methods.WriteToCSV(outputHeader, S1words, "Script1Parsed")
-Methods.PromptComplete()
+for index in range(Methods.GetNumScripts()):
+    name = Methods.GetScriptName(index)
+    script = open("Script Files/" + str(name) + ".txt", "r").read()
+    words = ParseScript(script)
 
-name = "Persona5"
-print("PARSING SCRIPT 2.")
-script2 = open("Script Files/" + name + ".txt", "r").read()
-S2words = ParseScript(script2)
-S2words = Methods.FindOccurrences(S2words)
-Methods.BubbleSort(S2words)
-S2total = Methods.CountEntries(S2words)
-Methods.WriteToCSV(outputHeader, S2words, "Script2Parsed")
-Methods.PromptComplete()
+    for entry in words:
+        if(entry[1] == None):
+            entry[1] = entry[0]
 
-print("Creating TOTALS dataset")
-totalsHeader = ["SET", "Script 1", "Script 2"]
-initialTotals = ["ALL", S1total, S2total]
+    words = Methods.FindOccurrences(words)
+    Methods.BubbleSort(words, -1)
+    total = Methods.CountEntries(words, -1)
+    Methods.WriteToCSV(outputHeader, words, "Script" + str(index + 1) + "Parsed", Methods.GetDirectoryMainCSV())
+    
+    totalsHeader += ("Script " + str(index + 1))
+    initialTotals += [total]
+
+
 totals = Methods.InitializeTotalsSet(initialTotals)
-Methods.WriteToCSV(totalsHeader, totals, "_Totals")
-Methods.PromptComplete()
+Methods.WriteToCSV(totalsHeader, totals, "Totals", Methods.GetDirectoryMainCSV())
