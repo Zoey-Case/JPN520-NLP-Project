@@ -1,9 +1,7 @@
 # Folders to ignore...
-CSV Backups
-Testing
-Data/*
-Spreadsheets
 __pycache__
+_Private
+Data
 
 # Files to ignore...
 OperationTracker.csv

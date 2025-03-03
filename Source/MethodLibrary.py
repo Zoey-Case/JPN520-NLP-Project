@@ -2,8 +2,10 @@ import csv
 import os
 import tkinter as tk
 from tkinter import ttk
+from tkinter import filedialog
 from threading import Thread
 from functools import partial
+import matplotlib
 
 class Methods:
     # BubbleSort algorithm (GREATEST to LEAST).
@@ -249,10 +251,10 @@ class MenuMethods:
         root.destroy()
     
     
-    def CustomComparisonMenu(self, root, STR):
+    def CustomComparisonMenu(self, root, strings):
         compWindow = tk.Toplevel(root)
         compWindow.minsize(480,810)
-        compWindow.title(STR.CUST_TITLE)
+        compWindow.title(strings.CUST_TITLE)
         
         width = 480
         height = 810
@@ -262,42 +264,42 @@ class MenuMethods:
         yLoc = (screenHeight/2) - (height/2)
         compWindow.geometry('%dx%d+%d+%d' % (width, height, xLoc, yLoc))
         
-        compLabel = tk.Label(master = compWindow, text = STR.CUST_LABEL, font = ("Ariel", 20))
-        adjCompAll = tk.Button(master = compWindow, text = STR.CUST_OPTION_0, bg = "gray", fg = "black", state = "disabled",
+        compLabel = tk.Label(master = compWindow, text = strings.CUST_LABEL, font = ("Ariel", 20))
+        adjCompAll = tk.Button(master = compWindow, text = strings.CUST_OPTION_0, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "All Adjectives"))
-        adjCompI = tk.Button(master = compWindow, text = STR.CUST_OPTION_1, bg = "gray", fg = "black", state = "disabled",
+        adjCompI = tk.Button(master = compWindow, text = strings.CUST_OPTION_1, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "い-Adjective"))
-        adjCompNa = tk.Button(master = compWindow, text = STR.CUST_OPTION_2, bg = "gray", fg = "black", state = "disabled",
+        adjCompNa = tk.Button(master = compWindow, text = strings.CUST_OPTION_2, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "な-Adjective"))
-        adnomComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_3, bg = "gray", fg = "black", state = "disabled",
+        adnomComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_3, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Adnominal"))
-        advComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_4, bg = "gray", fg = "black", state = "disabled",
+        advComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_4, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Adverb"))
-        auxVerbComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_5, bg = "gray", fg = "black", state = "disabled",
+        auxVerbComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_5, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Auxiliary Verb"))
-        codaComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_6, bg = "gray", fg = "black", state = "disabled",
+        codaComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_6, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Coda"))
-        conComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_7, bg = "gray", fg = "black", state = "disabled",
+        conComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_7, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Conjunction"))
-        interComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_8, bg = "gray", fg = "black", state = "disabled",
+        interComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_8, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Interjection"))
-        nounComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_9, bg = "gray", fg = "black", state = "disabled",
+        nounComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_9, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Noun"))
-        partComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_10, bg = "gray", fg = "black", state = "disabled",
+        partComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_10, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Particle"))
-        preComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_11, bg = "gray", fg = "black", state = "disabled",
+        preComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_11, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Postfix"))
-        postComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_12, bg = "gray", fg = "black", state = "disabled",
+        postComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_12, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Prefix"))
-        proComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_13, bg = "gray", fg = "black", state = "disabled",
+        proComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_13, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Pronoun"))
-        verbComp = tk.Button(master = compWindow, text = STR.CUST_OPTION_14, bg = "gray", fg = "black", state = "disabled",
+        verbComp = tk.Button(master = compWindow, text = strings.CUST_OPTION_14, bg = "gray", fg = "black", state = "disabled",
                                 command = partial(self.__AddCustomOption, "Verb"))
-        lemmaBuild = tk.Button(master = compWindow, text = STR.LEMMA_BUILD, bg = "gray", fg = "black", state = "disabled",
-                                command = partial(self.__RunCustomProcess, root, "LEMMA", STR))
-        wordBuild = tk.Button(master = compWindow, text = STR.WORD_BUILD, bg = "gray", fg = "black", state = "disabled",
-                                command = partial(self.__RunCustomProcess, root, "WORD", STR))
-        goBack = tk.Button(master = compWindow, text = STR.RETURN, bg = "gray", fg = "black", command = compWindow.destroy)
+        lemmaBuild = tk.Button(master = compWindow, text = strings.LEMMA_BUILD, bg = "gray", fg = "black", state = "disabled",
+                                command = partial(self.__RunCustomProcess, root, "LEMMA", strings))
+        wordBuild = tk.Button(master = compWindow, text = strings.WORD_BUILD, bg = "gray", fg = "black", state = "disabled",
+                                command = partial(self.__RunCustomProcess, root, "WORD", strings))
+        goBack = tk.Button(master = compWindow, text = strings.RETURN, bg = "gray", fg = "black", command = compWindow.destroy)
         
         if(self.tracker[0][1] == "YES"):
             adjCompAll["state"] = "normal"
@@ -320,7 +322,7 @@ class MenuMethods:
             
             self.customOptions = self.__SetupCustomOptionTracker()
         else:
-            compLabel["text"] = STR.ERROR_PARSED
+            compLabel["text"] = strings.ERROR_PARSED
             
         compLabel.pack(padx = 15, pady = 5, fill = tk.BOTH, expand = False)
         adjCompAll.pack(fill = tk.BOTH, padx = 15, pady = 5, expand = True)
@@ -344,10 +346,10 @@ class MenuMethods:
         
         compWindow.mainloop()
     
-    def DefaultComparisonMenu(self, root, STR):
+    def DefaultComparisonMenu(self, root, strings):
         compWindow = tk.Toplevel(root)
         compWindow.minsize(480,270)
-        compWindow.title(STR.COMP_TITLE)
+        compWindow.title(strings.COMP_TITLE)
         
         width = 480
         height = 270
@@ -357,21 +359,21 @@ class MenuMethods:
         yLoc = (screenHeight/2) - (height/2)
         compWindow.geometry('%dx%d+%d+%d' % (width, height, xLoc, yLoc))
         
-        compLabel = tk.Label(master = compWindow, text = STR.COMP_LABEL, font = ("Ariel", 20))
-        wordComp = tk.Button(master = compWindow, text = STR.COMP_OPTION_0, bg = "gray", fg = "black", state = "disabled",
-                             command = partial(self.__ModuleProcessWindow, "CompareWords", root, self.tracker[1], STR.WORD_TITLE, STR.WORD_LABEL, STR.RETURN))
-        lemmaComp = tk.Button(master = compWindow, text = STR.COMP_OPTION_1, bg = "gray", fg = "black", state = "disabled",
-                             command = lambda: self.__ModuleProcessWindow("CompareLemma", root, self.tracker[2], STR.LEMMA_TITLE, STR.LEMMA_LABEL, STR.RETURN))
-        posComp = tk.Button(master = compWindow, text = STR.COMP_OPTION_2, bg = "gray", fg = "black", state = "disabled",
-                             command = lambda: self.__ModuleProcessWindow("ComparePOS", root, self.tracker[3], STR.POS_TITLE, STR.POS_LABEL, STR.RETURN))
-        goBack = tk.Button(master = compWindow, text = STR.RETURN, bg = "gray", fg = "black", command = compWindow.destroy)
+        compLabel = tk.Label(master = compWindow, text = strings.COMP_LABEL, font = ("Ariel", 20))
+        wordComp = tk.Button(master = compWindow, text = strings.COMP_OPTION_0, bg = "gray", fg = "black", state = "disabled",
+                             command = partial(self.__ModuleProcessWindow, "CompareWords", root, self.tracker[1], strings.WORD_TITLE, strings.WORD_LABEL, strings.RETURN))
+        lemmaComp = tk.Button(master = compWindow, text = strings.COMP_OPTION_1, bg = "gray", fg = "black", state = "disabled",
+                             command = lambda: self.__ModuleProcessWindow("CompareLemma", root, self.tracker[2], strings.LEMMA_TITLE, strings.LEMMA_LABEL, strings.RETURN))
+        posComp = tk.Button(master = compWindow, text = strings.COMP_OPTION_2, bg = "gray", fg = "black", state = "disabled",
+                             command = lambda: self.__ModuleProcessWindow("ComparePOS", root, self.tracker[3], strings.POS_TITLE, strings.POS_LABEL, strings.RETURN))
+        goBack = tk.Button(master = compWindow, text = strings.RETURN, bg = "gray", fg = "black", command = compWindow.destroy)
         
         if(self.tracker[0][1] == "YES"):
             wordComp["state"] = "normal"
             lemmaComp["state"] = "normal"
             posComp["state"] = "normal"
         else:
-            compLabel["text"] = STR.ERROR_PARSED
+            compLabel["text"] = strings.ERROR_PARSED
             
         compLabel.pack(padx = 15, pady = 5, fill = tk.BOTH, expand = False)
         wordComp.pack(fill = tk.BOTH, padx = 15, pady = 5, expand = True)
@@ -381,8 +383,8 @@ class MenuMethods:
         
         compWindow.mainloop()
     
-    def ParseText(self, root, STR):
-        self.__ModuleProcessWindow("DataParser", root, self.tracker[0], STR.PARSE_TITLE, STR.PARSE_LABEL, STR.RETURN)
+    def ParseText(self, root, strings):
+        self.__ModuleProcessWindow("DataParser", root, self.tracker[0], strings.PARSE_TITLE, strings.PARSE_LABEL, strings.RETURN)
     
     def ResetApp(self):
         # Delete CORE data files
@@ -430,10 +432,10 @@ class MenuMethods:
         processLabel["text"] = "PROCESS COMPLETE"
     
     
-    def __ModuleProcessWindow(self, module, root, trackerData, STRtitle, STRlabel, STRreturn):
+    def __ModuleProcessWindow(self, module, root, trackerData, titleText, labelText, returnText):
         processWindow = tk.Toplevel(root)
         processWindow.minsize(480,270)
-        processWindow.title(STRtitle)
+        processWindow.title(titleText)
         
         width = 480
         height = 270
@@ -443,13 +445,13 @@ class MenuMethods:
         yLoc = (screenHeight/2) - (height/2)
         processWindow.geometry('%dx%d+%d+%d' % (width, height, xLoc, yLoc))
         
-        processLabel = tk.Label(master = processWindow, text = STRlabel, font = ("Ariel", 20))
+        processLabel = tk.Label(master = processWindow, text = labelText, font = ("Ariel", 20))
         processLabel.pack(padx = 15, pady = 5, fill = tk.BOTH, expand = False)
         
         progressBar = ttk.Progressbar(master = processWindow, mode = "indeterminate")
         progressBar.pack(fill = tk.BOTH, padx = 15, pady = 10, expand = False)
         
-        continueButton = tk.Button(master = processWindow, text = STRreturn, bg = "gray", fg = "black", state = "disabled", command = processWindow.destroy)
+        continueButton = tk.Button(master = processWindow, text = returnText, bg = "gray", fg = "black", state = "disabled", command = processWindow.destroy)
         continueButton.pack(fill = tk.BOTH, padx = 15, pady = 5, expand = True)
         
         if(module == "CompareCustom"):
@@ -474,7 +476,7 @@ class MenuMethods:
         processWindow.mainloop()
         
     
-    def __RunCustomProcess(self, root, type, STR):
+    def __RunCustomProcess(self, root, type, strings):
         breakOut = True
         
         for entry in self.customOptions:
@@ -498,9 +500,9 @@ class MenuMethods:
                 self.customOptions[index][1] = 0
         
         if(type == "LEMMA"):
-            self.__ModuleProcessWindow("CompareCustom", root, [], STR.LEMMA_TITLE, STR.LEMMA_LABEL, STR.RETURN)
+            self.__ModuleProcessWindow("CompareCustom", root, [], strings.LEMMA_TITLE, strings.LEMMA_LABEL, strings.RETURN)
         else:
-            self.__ModuleProcessWindow("CompareCustom", root, [], STR.WORD_TITLE, STR.WORD_LABEL, STR.RETURN)
+            self.__ModuleProcessWindow("CompareCustom", root, [], strings.WORD_TITLE, strings.WORD_LABEL, strings.RETURN)
     
     def __SetupCustomOptionTracker(self):
         return  [["い-Adjective", 0],
